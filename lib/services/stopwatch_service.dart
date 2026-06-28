@@ -17,6 +17,11 @@ class StopwatchService extends ChangeNotifier {
   int _lapCount = 0;
   Duration _lastTotalTime = Duration.zero;
 
+  // System clock-based timing fields
+  DateTime? _startTime;
+  DateTime? _pauseStartTime;
+  Duration _totalPausedDuration = Duration.zero;
+
   Duration get elapsed => _elapsed;
   StopwatchState get state => _state;
   List<LapModel> get laps => List.unmodifiable(_laps);
@@ -41,13 +46,18 @@ class StopwatchService extends ChangeNotifier {
   void start() {
     if (!isInitial) return;
     _state = StopwatchState.running;
+    _startTime = DateTime.now();
+    _totalPausedDuration = Duration.zero;
     _startTimer();
     notifyListeners();
   }
 
   void pause() {
     if (!isRunning) return;
+    final now = DateTime.now();
     _state = StopwatchState.paused;
+    _pauseStartTime = now;
+    _elapsed = now.difference(_startTime!) - _totalPausedDuration;
     _stopTimer();
     notifyListeners();
   }
@@ -55,6 +65,8 @@ class StopwatchService extends ChangeNotifier {
   void resume() {
     if (!isPaused) return;
     _state = StopwatchState.running;
+    _totalPausedDuration += DateTime.now().difference(_pauseStartTime!);
+    _pauseStartTime = null;
     _startTimer();
     notifyListeners();
   }
@@ -65,6 +77,9 @@ class StopwatchService extends ChangeNotifier {
     _elapsed = Duration.zero;
     _lapStartTime = Duration.zero;
     _lastTotalTime = Duration.zero;
+    _startTime = null;
+    _pauseStartTime = null;
+    _totalPausedDuration = Duration.zero;
     _state = StopwatchState.initial;
     _laps.clear();
     _lapCount = 0;
@@ -100,7 +115,7 @@ class StopwatchService extends ChangeNotifier {
   void _startTimer() {
     _timer?.cancel();
     _timer = Timer.periodic(AppConstants.timerInterval, (_) {
-      _elapsed += AppConstants.timerInterval;
+      _elapsed = DateTime.now().difference(_startTime!) - _totalPausedDuration;
       notifyListeners();
     });
   }

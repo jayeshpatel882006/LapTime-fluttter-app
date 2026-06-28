@@ -7,48 +7,56 @@ import 'lap_card.dart';
 class LapList extends StatelessWidget {
   final List<LapModel> laps;
 
-  const LapList({
-    super.key,
-    required this.laps,
-  });
+  const LapList({super.key, required this.laps});
 
   @override
   Widget build(BuildContext context) {
+    // if (laps.isEmpty) {
+    //   return Center(
+    //     child: SingleChildScrollView(
+    //       child: Column(
+    //         mainAxisAlignment: MainAxisAlignment.center,
+    //         children: [
+    //           Image.asset(
+    //             'assets/illustrations/empty_state.png',
+    //             height: 180,
+    //             fit: BoxFit.contain,
+    //           ),
+    //           const SizedBox(height: 20),
+    //           const Text(
+    //             'No laps recorded yet.',
+    //             style: TextStyle(
+    //               color: AppColors.textSecondary,
+    //               fontSize: 16,
+    //               fontWeight: FontWeight.w500,
+    //             ),
+    //           ),
+    //           const SizedBox(height: 8),
+    //           const Text(
+    //             'Start the timer and tap Lap to log your times',
+    //             style: TextStyle(
+    //               color: AppColors.textTertiary,
+    //               fontSize: 14,
+    //             ),
+    //             textAlign: TextAlign.center,
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //   );
+    // }
     if (laps.isEmpty) {
-      return Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/illustrations/empty_state.png',
-                height: 180,
-                fit: BoxFit.contain,
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'No laps recorded yet.',
-                style: TextStyle(
-                  color: AppColors.textSecondary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'Start the timer and tap Lap to log your times',
-                style: TextStyle(
-                  color: AppColors.textTertiary,
-                  fontSize: 14,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ],
+      return const Center(
+        child: Text(
+          'No laps recorded yet',
+          style: TextStyle(
+            color: AppColors.textSecondary,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
           ),
         ),
       );
     }
-
     Duration shortest = Duration.zero;
     bool first = true;
     for (final lap in laps) {
@@ -67,7 +75,9 @@ class LapList extends StatelessWidget {
         final lap = laps[index];
         final bool hasLapsForComparison = !first;
         final bool isFastest =
-            lap.lapNumber > 1 && hasLapsForComparison && lap.lapTime == shortest;
+            lap.lapNumber > 1 &&
+            hasLapsForComparison &&
+            lap.lapTime == shortest;
 
         return LapCard(
           key: ValueKey('lap_${laps[index].lapNumber}'),
