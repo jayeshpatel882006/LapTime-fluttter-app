@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/lap_model.dart';
+import '../utils/theme.dart';
 import 'lap_card.dart';
 
 class LapList extends StatelessWidget {
@@ -14,7 +15,38 @@ class LapList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (laps.isEmpty) {
-      return const SizedBox.shrink();
+      return Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/illustrations/empty_state.png',
+                height: 180,
+                fit: BoxFit.contain,
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'No laps recorded yet.',
+                style: TextStyle(
+                  color: AppColors.textSecondary,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Start the timer and tap Lap to log your times',
+                style: TextStyle(
+                  color: AppColors.textTertiary,
+                  fontSize: 14,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      );
     }
 
     Duration shortest = Duration.zero;

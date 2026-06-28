@@ -42,27 +42,35 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.background,
-              Color(0xFF08080D),
-            ],
+          color: AppColors.background,
+          image: DecorationImage(
+            image: AssetImage('assets/backgrounds/welcome_bg.png'),
+            fit: BoxFit.cover,
+            opacity: 0.15,
           ),
         ),
         child: SafeArea(
           child: Column(
             children: [
               const SizedBox(height: 16),
-              const Text(
-                AppConstants.timerTitle,
-                style: TextStyle(
-                  color: AppColors.textPrimary,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.5,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/logo/secondary_logo.png',
+                    height: 24,
+                  ),
+                  const SizedBox(width: 8),
+                  const Text(
+                    AppConstants.timerTitle,
+                    style: TextStyle(
+                      color: AppColors.textPrimary,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: screenHeight * 0.04),
               SizedBox(
