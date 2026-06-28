@@ -14,17 +14,7 @@ It's a thoughtfully designed productivity tool built for athletes, students, dev
 
 Every animation, interaction, and layout has been carefully designed to create an experience that feels smooth, intuitive, and modern.
 
----
 
-## 📸 Screenshots
-
-> Screenshots and promotional images will be added soon.
-
-| Home Screen   | Lap History   | Notification  |
-| ------------- | ------------- | ------------- |
-| _Coming Soon_ | _Coming Soon_ | _Coming Soon_ |
-
----
 
 # 🚀 Features
 
@@ -205,13 +195,13 @@ Upcoming features planned for future releases:
 Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/LapTime.git
+git clone https://github.com/jayeshpatel882006/LapTime-fluttter-app
 ```
 
 Navigate to the project:
 
 ```bash
-cd LapTime
+cd LapTime-fluttter-app
 ```
 
 Install dependencies:
